@@ -1,0 +1,43 @@
+{
+  "name": "progettoingegneriasoftware",
+  "version": "1.0.0",
+  "description": "Esame IngSoftware2",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "cookieparser": "^0.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.0",
+    "nodemailer": "^6.4.16"
+  },
+  "devDependencies": {
+    "fetch-mock": "^9.11.0",
+    "jest": "^26.6.3",
+    "node-fetch": "^2.6.1",
+    "supertest": "^6.0.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --forceExit"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware.git"
+  },
+  "author": "Simone Grego, Andrea Bonora, Matteo Lunardon, Chabbaki Aymane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware/issues"
+  },
+  "homepage": "https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware#readme"
+}

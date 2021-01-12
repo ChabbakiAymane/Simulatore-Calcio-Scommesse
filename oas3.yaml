@@ -1,0 +1,970 @@
+openapi: 3.0.0
+info:
+  version: '2.0'
+  title: "Progetto OpenAPI 3.0"
+  description: API for managing exams.
+  license:
+    name: MIT
+servers:
+  - url: fantatotocalcio.herokuapp.com
+    description: Localhost
+paths:
+  /api/registrazione/users:
+    get:
+      description: >-
+        Ritorna la lista di tutti gli utenti in formato json.
+      summary: Get JSON Users
+      responses:
+        '200':
+          description: 'Collezione di utenti'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell''utente'
+                  username:
+                    type: string
+                    description: 'Username dell''utente'
+                  mail:
+                    type: string
+                    description: 'Email dell''utente'
+                  password:
+                    type: string
+                    description: 'Password dell''utente'
+                  punti:
+                    type: integer
+                    description: 'Punti dell''utente'
+                  puntiSettimanali:
+                    type: integer
+                    description: 'Punti settimanali dell''utente'
+        '404':      
+          description: 'Nessun utente registrato'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Non ci sono utenti registrati'
+                    
+  /api/registrazione/lastID:
+    get:
+      description: >-
+        Ritorna l'utente che ha ID più grande nel DB
+      summary: Get JSON User max ID
+      responses:
+        '200':
+          description: 'Utente con ID più grande nel DB Users'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell''utente'
+                  username:
+                    type: string
+                    description: 'Username dell''utente'
+                  mail:
+                    type: string
+                    description: 'Email dell''utente'
+                  password:
+                    type: string
+                    description: 'Password dell''utente'
+                  punti:
+                    type: integer
+                    description: 'Punti dell''utente'
+                  puntiSettimanali:
+                    type: integer
+                    description: 'Punti settimanali dell''utente'
+        '404':      
+          description: 'Nessun utente registrato'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Non ci sono utenti registrati'
+  /api/registrazione/utenti/{email}:
+    get:
+      description: >-
+        Restituisce un messaggio se trova o non trova un utente che sta utilizzando quella email
+      summary: Controllo se la email è già utilizzata
+      parameters:
+        - name: email
+          in: path
+          required: true
+          description: 'Email dell''utente che vuole registrarsi'
+      responses:
+        '200':
+          description: 'Email utilizzata'
+        '204':
+          description: 'Email non utilizzata'
+        '404':      
+          description: 'Email non corretta'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: 'Errore email non corretta'
+  /api/registrazione/nuovoUtente:
+    post:
+      description: >-
+        Crea un nuovo utente
+      summary: Post new User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - username
+                - mail
+                - password
+              properties:
+                id:
+                  type: integer
+                  description: 'ID dell''utente'
+                username:
+                  type: string
+                  description: 'Username dell''utente'
+                mail:
+                  type: string
+                  description: 'Email dell''utente'
+                password:
+                  type: string
+                  description: 'Passoword dell''utente'
+      responses:
+        '400':
+          description: 'Errore ID non corretto'
+        '400':
+          description: 'Errore email non valida'
+        '400':
+          description: 'Errore dati passati non validi'
+        '200':
+          description: 'Utente appena creato'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell''utente'
+                  username:
+                    type: string
+                    description: 'Username dell''utente'
+                  mail:
+                    type: string
+                    description: 'Email dell''utente'
+                  password:
+                    type: string
+                    description: 'Password dell''utente'
+                  punti:
+                    type: integer
+                    description: 'Punti dell''utente'
+                  puntiSettimanali:
+                    type: integer
+                    description: 'Punti settimanali dell''utente'
+  /api/addPronostici/partite:
+    get:
+      description: >-
+        Ritorna la lista di tutte le partite in formato json.
+      summary: Get JSON of Partites
+      responses:
+        '200':
+          description: 'Collection of partite'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID della partita'
+                  sq1:
+                    type: integer
+                    description: 'ID home team'
+                  sq2:
+                    type: integer
+                    description: 'ID guest team'
+                  esito:
+                    type: string
+                    description: 'Esito della partita'
+                  date:
+                    type: object
+                    description: 'Data della partita'    
+        '404': 
+          description: 'Non ci sono partite'
+  /api/addPronostici/pronostici:
+    get:
+      description: >-
+        Ritorna la lista di tutti i pronostici in formato json.
+      summary: Get JSON of Predictions
+      responses:
+        '200':
+          description: 'Collection of pronostici'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID del pronostico'
+                  partita:
+                    type: integer
+                    description: 'ID della partita'
+                  idU:
+                    type: integer
+                    description: 'ID utente'
+                  pronostico:
+                    type: string
+                    description: 'Valore del pronostico'
+        '204':
+          description: 'Non ci sono pronostici'
+  /api/addPronostici/pronostici/{id}:
+    get:
+      description: >-
+        Ritorna la lista di tutti i pronostici in formato json di uno specifico utente
+      summary: Get JSON of Predictions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  description: 'ID of the user'
+      responses:
+        '200':
+          description: 'Collection of pronostici'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID del pronostico'
+                  partita:
+                    type: integer
+                    description: 'ID della partita'
+                  idU:
+                    type: integer
+                    description: 'ID utente'
+                  pronostico:
+                    type: string
+                    description: 'Valore del pronostico'
+        '204':
+          description: 'Non ci sono pronostici'
+        '400':
+          description: 'ID User non corretto'  
+        '404':
+          description: 'Pronostico inesistente'  
+  /api/addPronostici/partiteDisponibili:
+    get:
+      description: >-
+        Ritorna la lista delle partite che si giocano
+      summary: Get JSON of matches
+      responses:
+        '200':
+          description: 'Collection di partite'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID della partita'
+                  sq1:
+                    type: integer
+                    description: 'ID home team'
+                  sq2:
+                    type: integer
+                    description: 'ID guest team'
+                  esito:
+                    type: string
+                    description: 'Esito della partita'
+                  date:
+                    type: object
+                    description: 'Data della partita' 
+        '404':
+          description: 'Non ci sono partita'  
+  /api/addPronostici/user/{username}:
+    get:
+      description: >-
+        Ritorna l'ID di un utente usando il suo username
+      summary: Get ID of user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                  description: 'Username dell''utente'
+      responses:
+        '200':
+          description: 'Utente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell''utente'
+                  username:
+                    type: string
+                    description: 'Username dell''utente'
+                  mail:
+                    type: string
+                    description: 'Email dell''utente'
+                  password:
+                    type: string
+                    description: 'Password dell''utente'
+                  punti:
+                    type: integer
+                    description: 'Punti dell''utente'
+                  puntiSettimanali:
+                    type: integer
+                    description: 'Punti settimanali dell''utente'
+        '400':
+          description: 'Username non corretto'  
+        '404':
+          description: 'Errore utente inesistente'  
+  /api/addPronostici/nuovoPronostico:
+    post:
+      description: >-
+        Crea un nuovo pronostico
+      summary: Post new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - partita
+                - idU
+                - pronostico
+              properties:
+                id:
+                  type: integer
+                  description: 'ID dell pronostico'
+                partita:
+                  type: string
+                  description: 'ID della partita'
+                idU:
+                  type: string
+                  description: 'ID dell''utente'
+                pronostico:
+                  type: string
+                  description: 'Pronostico inserito'
+      responses:
+        '400':
+          description: 'Dati ricevuti null'
+        '400':
+          description: 'Dati non validi'
+        '404':
+          description: 'Errore creazione nuovo pronostico'
+        '201':
+          description: 'Pronostico appena creato'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell pronostico'
+                  partita:
+                    type: string
+                    description: 'ID della partita'
+                  idU:
+                    type: string
+                    description: 'ID dell''utente'
+                  pronostico:
+                    type: string
+                    description: 'Pronostico inserito'
+  /api/addPronostici/modPronostico/{id}:
+    put:
+      description: >-
+        Modifica un pronostico in base all'id passato
+      summary: PUT pronostico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - pronostico
+              properties:
+                id:
+                  type: integer
+                  description: 'ID dell pronostico da modificare'
+                pronostico:
+                  type: string
+                  description: 'Pronostico inserito'
+      responses:
+        '400':
+          description: 'Dati ricevuti null'
+        '400':
+          description: 'Dati non validi'
+        '404':
+          description: 'Errore modifica pronostico'
+        '201':
+          description: 'Pronostico appena modificato'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'ID dell pronostico'
+                  partita:
+                    type: string
+                    description: 'ID della partita'
+                  idU:
+                    type: string
+                    description: 'ID dell''utente'
+                  pronostico:
+                    type: string
+                    description: 'Pronostico inserito'
+  /api/addPronostici/eliminaPronostico/{id}:
+    delete:
+      description: >-
+        Elimina un pronostico in base all'id passato
+      summary: DELETE pronostico
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  description: 'ID dell pronostico da eliminare'
+      responses:
+        '400':
+          description: 'ID ricevuto null'
+        '400':
+          description: 'ID id pronostico non valido'
+        '404':
+          description: 'Errore pronostico inesistente'
+        '201':
+          description: 'Pronostico eliminato correttamente'
+  /users:
+    post:
+      description: >-
+        Creates a new user in the system. NON IMPLEMENTATO
+      summary: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+              properties:
+                username:
+                  type: string
+                  description: 'Username of the user'
+                email:
+                  type: string
+                  description: 'Email address of the user'
+      responses:
+        '201':
+          description: 'The created user'
+  /users/{id}:
+    get:
+      description: >-
+        Gets information about a specific user, identified by an ID NON IMPLEMENTATO
+      summary: Get a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 'ID of the requested user'
+      responses:
+        '200':
+          description: 'The user corresponding to the input ID'
+  /api/addPartite/partite:
+    post:
+      description: >-
+        Crea le partite e le aggiunge al DB data il nome della squadra che gioca in casa
+        il nome della squadra ospite e la data della partita(yy-mm-dd)
+      summary: Create a Match
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partite'
+      responses:
+        '200':
+          description: 'The Match is created'
+        '400':
+          description: 'Some data arrived was null'
+    get:
+      description: >-
+        Ritorna la lista di tutte le partite in formato json.
+      summary: Get JSON of Partites
+      responses:
+        '200':
+          description: 'Collection of partites'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'The id of the partita'
+                  sq1:
+                    type: integer
+                    description: 'The id of the home team'
+                  sq2:
+                    type: integer
+                    description: 'The id of the guest team'
+                  esito:
+                    type: string
+                    description: 'The esito of the partita'
+                  date:
+                    type: object
+                    description: 'The date of the partita'
+  /api/addPartite/search:
+    get:
+      description: >-
+        Ricevi informazioni di una specifica partita inserendo nel campo get idP=number
+      summary: Get una Partita
+      responses:
+        '200':
+          description: 'A partita from DB'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'The id of the partita'
+                  sq1:
+                    type: integer
+                    description: 'The id of the home team'
+                  sq2:
+                    type: integer
+                    description: 'The id of the guest team'
+                  esito:
+                    type: string
+                    description: 'The esito of the partita'
+                  date:
+                    type: object
+                    description: 'The date of the partita'
+      parameters:
+        - in: query
+          name: idP
+          example: 1
+          required: true
+          description: 'IDPartita of the requested Partita'
+          
+  /api/addPartite/search:
+    get:
+      description: >-
+        Ricevi informazioni di una specifica squadra inserendo nel campo get name=nomesquadra
+      summary: Get una Squadra
+      responses:
+        '200':
+          description: 'A squadra from DB'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'The id of the squadra'
+                  name:
+                    type: string
+                    description: 'The name of the squadra'
+                  v:
+                    type: integer
+                    description: 'numebr of match win'
+                  p:
+                    type: integer
+                    description: 'number of match drow'
+                  s:
+                    type: integer
+                    description: 'nmber of match lose'
+      parameters:
+        - name: name 
+          in: query
+          example: 'Atalanta'
+          required: true
+          description: 'Name of the requested Squadra'
+      
+  /api/addPartite/squadre:
+    get:
+      description: >-
+        Ritorna la lista di tutte le squadre in formato json.
+      summary: Get JSON Squadres
+      responses:
+        '200':
+          description: 'Collection of squadre'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 'The id of the squadra'
+                  name:
+                    type: string
+                    description: 'The name of the squadra'
+                  v:
+                    type: integer
+                    description: 'numebr of match win'
+                  p:
+                    type: integer
+                    description: 'number of match drow'
+                  s:
+                    type: integer
+                    description: 'nmber of match lose'
+                    
+  /api/login:
+    post:
+      description: >-
+        Prende dalla chiamata POST l'username e la password inserita dall'utente, controlla se l'utente è presente e se username e password combaciano.
+      responses:
+        '200':
+          description: 'Loggato con successo'
+          
+  /api/check:
+    post:
+      description: >-
+        Controllo se token è valido o se non è presente
+      summary: Check token
+      responses:
+        '200':
+          description: 'Token valido'
+  /api/change-password:
+    post:
+      description: >-
+        Permette di cambiare la password dell'utente
+      summary: Change password utente
+      responses:
+        '200':
+          description: 'Password cambiata'
+  /api/home/username:
+    post:
+      description: >-
+        Prende dalla chiamata POST l'username dell'utente
+      summary: Get username
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: 'Username utente'
+          
+  /api/home/punti:
+    post:
+      description: >-
+        Prende dalla chiamata POST i punti in classifica dell'utente
+      summary: Get punti
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  punti:
+                    type: integer
+                    description: 'Punti in classifica utente'
+  /api/home/posizione:
+    post:
+      description: >-
+        Restituisce la posizione in classifica dell'utente
+      summary: Get punti
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  punti:
+                    type: integer
+                    description: 'Posizione in classifica utente'
+  /api/home/punt_set:
+    post:
+      description: >-
+        Restituisce i punti settimanali dell'utente
+      summary: Get punti settimanali
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  punti:
+                    type: integer
+                    description: 'Punti totalizzati dall utente nell ultima settimana'
+  /api/home/search_p:
+    get:
+      description: >-
+        Restituisce le prossime 5 partite
+      summary: Get partite
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+  /api/home/search5:
+    get:
+      description: >-
+        Restituisce la data più recente delle prossime 5 partite (servirà per settare il countdown)
+      summary: Get data partita più recente
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+  /api/home/search5_2:
+    get:
+      description: >-
+        Restituisce la data meno recente delle prossime 5 partite (servirà per settare il countdown)
+      summary: Get data partita meno recente
+      responses:
+        '200':
+          description: 'Eseguito correttamente'
+          
+  /api/aggiornaEsiti/inserimento_esiti:
+    post:
+      description: >-
+        Aggiorna gli esiti delle ultime cinque partite nel DB e aggiorna i punti in classifica degli utenti
+      summary: Inserisci Esiti
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Esiti'
+      responses:
+        '200':
+          description: 'Esiti e punti aggiornati correttamente'
+        '400':
+          description: 'Esiti non specificati'
+        '400':
+          description: 'Id partite non specificati'
+          
+  /api/aggiornaEsiti/get_partite:
+    get:
+      description: >-
+        Restituisce le ultime cinque partite nel DB
+      summary: get partite
+      responses:
+        '200':
+          description: 'Ultime cinque partite del DB restituite correttamente'
+  
+  /api/infoSquadre/getInfoSquadre:
+    get:
+      description: >-
+        Restituisce tutte le squadre del DB
+      summary: get info squadre
+      responses:
+        '200':
+          description: 'Squadre restituite correttamente'
+          
+  /api/infoSquadre/{id}:
+    get:
+        description: >-
+          Restituisce la partita con l'id specificato nell'url
+        summary: Inserisci Esiti
+        responses:
+          '200':
+            description: 'Squadra restituita correttamente'
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: 'Id della squadra'
+          
+          
+  /inserimento_pronostici:
+    post:
+      description: >-
+          Inserimento pronostici da parte dell'utente
+      summary: Inserisci Pronostici
+      responses:
+        '200':
+          description: 'Pronostici aggiornati correttamente'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - partita
+                - utente
+                - pronostico
+              properties:
+                id:
+                  type: number
+                  description: 'id pronostico'
+                partita:
+                  type: number
+                  description: 'id partita'
+                utente:
+                  type: string
+                  description: 'username utente'
+                pronostico:
+                  type: number
+                  description: 'pronostico della partita'
+
+  /api/classifica/classifica:
+    get:
+      description: >-
+        Ritorna la lista degli utenti in ordine di punti decrescente.
+      summary: Get Classifica
+      responses:
+        '200':
+          description: 'Collection of user ordered desc by punti'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: 'The Username of the user'
+                  punti:
+                    type: integer
+                    description: 'Punti of the user'
+  /api/classifica/search:
+    get:
+      description: >-
+        Ritorna le info principali di un utente in classifica.
+      summary: Get Utente
+      responses:
+        '200':
+          description: 'a Single user from classifica'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pos:
+                    type: integer
+                    description: 'The position in classifica of the user'
+                  username:
+                    type: string
+                    description: 'The Username of the user'
+                  punti:
+                    type: integer
+                    description: 'Punti of the user'
+      parameters:
+        - in: query
+          name: username
+          example: 'MarioRossi'
+          description: 'Username dell utente'
+          
+components:
+  schemas:
+    Partite:
+      type: object
+      required:
+      - Squadra1
+      - Squadra2
+      - Date
+      - num
+      properties:
+          Squadra1:
+            type: string
+            description: 'Name della Squadra che gioca in casa'
+          Squadra2:
+            type: string
+            description: 'Nome della Squadra che gioca come ospite'
+          Date:
+            type: object
+            description: 'Data e orario della partita'
+          Numero:
+            type: number
+            description: 'Offset per id da inserire nel DB'
+    Esiti:
+      type: object
+      required:
+      - e1
+      - e2
+      - e3
+      - e4
+      - e5
+      - idP1
+      - idP2
+      - idP3
+      - idP4
+      - idP5
+      properties:
+          e1:
+            type: string
+            description: 'Esito della prima partita'
+          e2:
+            type: string
+            description: 'Esito della seconda partita'
+          e3:
+            type: string
+            description: 'Esito della terza partita'
+          e4:
+            type: string
+            description: 'Esito della quarta partita'
+          e5:
+            type: string
+            description: 'Esito della quinta partita'
+          idP1:
+            type: number
+            description: 'id della prima delle ultime cinque partite'
+          idP2:
+            type: number
+            description: 'id della seconda delle ultime cinque partite'
+          idP3:
+            type: number
+            description: 'id della terza delle ultime cinque partite'
+          idP4:
+            type: number
+            description: 'id della quarta delle ultime cinque partite'
+          idP5:
+            type: number
+            description: 'id della quinta delle ultime cinque partite'

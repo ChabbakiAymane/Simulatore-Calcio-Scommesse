@@ -1,0 +1,53 @@
+[33mf3609f2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m aggiunta cartelle addpartite al main
+[33m61c38d0[m aggiunta home
+[33m32678db[m Merge pull request #3 from SimoneGrego-Unitn/AndreaNewFeature
+[33m71e2135[m[33m ([m[1;31morigin/AndreaNewFeature[m[33m, [m[1;32mAndreaNewFeature[m[33m)[m nuova disposizione cartelle
+[33m4a05be2[m Delete fake.txt.txt
+[33mdafb0fc[m bug fixing
+[33m1742c4c[m Merge pull request #2 from SimoneGrego-Unitn/Develop
+[33ma19a86c[m Merge pull request #1 from SimoneGrego-Unitn/addPartite
+[33m41d705a[m[33m ([m[1;31morigin/Develop[m[33m)[m Pagina Pronostici (login basic, mostra partite, mostra pronostici per utente, modifica pronostico
+[33m13f4e27[m rinominato index.html in inserisci_Esiti.html
+[33m9794b24[m Gestione nuovo campo puntiSettimanali
+[33m7bc7a6d[m Aggioramento Form
+[33ma1d09fc[m Sistemato index.html con nomi squadre
+[33m4a0e73e[m pagine di supporto per test
+[33m8c20f3e[m Aggiunte funzionalità Database
+[33m79d80e8[m Transferring API Description file from Apiary.io
+[33md4402e6[m Id squadre delle ultime 5 partite dinamico
+[33m78f7aaf[m Aggiorna esiti funzionante e completo di interazione con il DB
+[33m536efdc[m Transferring API Description file from Apiary.io
+[33ma5621a6[m exemple.http
+[33mcaf75ed[m implementata interazione con il db
+[33mc3f83d6[m cartella static
+[33m3729c08[m addPartite, index, example.http
+[33m6f4dace[m Inserimento esiti in post
+[33m185cfd5[m Aggiunta pagina pronostici (errore inserimento)
+[33m10fdbde[m Pagina pronostici
+[33m38f5bc0[m Add of gitingore file
+[33m1e76ae2[m Update README.md
+[33ma58c7e9[m Update README.md
+[33m63ffdba[m Update README.md
+[33m980b366[m Update README.md
+[33md024c74[m Inserimento screen Mockup v1
+[33mb0431e6[m Update README.md
+[33m19ee37f[m Update README.md
+[33m306ed54[m Update README.md
+[33mfb121a6[m Update README.md
+[33m901beb0[m Add files via upload
+[33mc94f831[m Delete 176937 (2020_03_12 21_21_11 UTC).jpg
+[33mc3ea40d[m Directory con codice sorgente pagine
+[33ma7bde4c[m Aggiunta cartella Database
+[33m0c30e93[m Merge branch 'main' of https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware into main
+[33m9137bdc[m Info partite DB
+[33m2898fdb[m Merge branch 'main' of https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware into main
+[33m54e670c[m Info pronostici db
+[33m01fc0ce[m Rename Squadre to Squadre.txt
+[33mb1374e1[m Merge branch 'main' of https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware into main
+[33m6989059[m Merge branch 'main' of https://github.com/SimoneGrego-Unitn/ProgettoIngegneriaSoftware into main
+[33m02b753c[m Create Pronostici.txt
+[33m6ff7bc9[m Rinomino file Partite
+[33m231bd99[m Info squadre db
+[33m3cea2aa[m Info partite DB
+[33m3ab4c17[m User data for DB
+[33m1651326[m Initial commit
