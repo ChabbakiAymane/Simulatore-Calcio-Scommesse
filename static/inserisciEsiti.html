@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="./check.js"></script>
+    <title>Inserisci esiti</title>
+    <style>
+        table,
+        th,
+        td {
+            text-align: center;
+        }
+
+        .c {
+            text-align: right;
+        }
+
+        .t {
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <a href="..">Torna alla home</a>
+    <h1>FANTATOTOCALCIO</h1>
+    <div class="admin">
+        <form action="/api/v2/aggiornaEsiti/inserimentoEsiti" method="POST">
+
+            <table id="utenti">
+                <tr>
+                    <th class="c">Casa</th>
+                    <th>-</th>
+                    <th class="t">Trasferta</th>
+                    <th>Esito</th>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><input type="submit" value="Conferma" name="conferma"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+<script type="text/javascript" src="vedi_squadre.js"></script>
+
+</html>

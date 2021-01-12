@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>FANTATOTOCALCIO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .errorMsg{
+            color: red;
+            margin:auto;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="p-4 pt-5">
+                <a href="./index.html" class="img logo rounded-circle mb-5"
+                    style="background-image: url(images/logo.jpg);"></a>
+                <ul class="list-unstyled components mb-5">
+                    <li id="index">
+                        <a onclick='caricaPagine("index");'>Home</a>
+                    </li>
+                    <li class="user" id="homepage">
+                        <a onclick='caricaPagine("homepage");'>User</a>
+                    </li>
+                    <li id="classifica">
+                        <a onclick='caricaPagine("classifica");'>Classifica</a>
+                    </li>
+                    <li class="admin" id="inserisciEsiti">
+                        <a class="admin" onclick='caricaPagine("inserisciEsiti");'>Inserisci Esiti</a>
+                    </li>
+                    <li class="user" id="pronostici">
+                        <a onclick='caricaPagine("pronostici");'>Pronostici</a>
+                    </li>
+                    <li class="user" id="infoSquadre">
+                        <a onclick='caricaPagine("infoSquadre");'>Info Squadre</a>
+                    </li>
+                </ul>
+
+                <div class="footer">
+                    <p> All rights reserved.</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="p-4 p-md-5">
+            <span id="login_failed"></span>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <button type="button" id="login" style="position: absolute; left:78%; padding: 10px;" class="btn btn-primary" onclick="caricaPagine('login')">LOG IN</button>
+                        <button type="button" style="position: absolute; left:85%; padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#logout">LOG OUT</button>
+                    </div>
+                </div>
+            </nav>
+            <hr>
+            <div style="text-align: center;">
+                <h5 id="infoText"><strong>Compila questo form per creare un nuovo account.</strong></h5>
+                <h5>Già iscritto? <a href="./login.html">Accedi!</a></h5>
+            </div>
+            <hr>
+            <form class="needs-validation" action="#" method="POST" name="registrazione" id="registrazione" novalidate>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="@">@</span>
+                            </div>
+                            <input type="text" class="form-control" id="username" placeholder="Username" required>
+                        </div>
+                        <div id="usernameError" class="errorMsg">
+                            Inserisci un username.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        </div>
+                        <div class="errorMsg" id="emailError">
+                            Inserisci una mail.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="psw">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="psw" class="form-control" autocomplete="on" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <a href="#"><span onclick="showPsw()" toggle="#psw" id="toggle" class="fa fa-fw fa-eye field-icon toggle-password"></span></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="errorMsg" id="pswError">
+                            Inserire una password.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="psw">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="psw-repeat" class="form-control"
+                                data-toggle="password" required autocomplete="on">
+                        </div>
+                        <div class="errorMsg" id="pswErrorRepeat">
+                            Inserire una password.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="button" onclick="check()" id="submit">Conferma</button>
+            </form>
+
+            <!-- PopUp di logout -->
+            <div class="container">
+                <div class="modal fade" id="logout" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Contenuto del popup di Logout-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">LOGOUT</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Vuoi veramente effettuare il logout?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form id="logout" action="./index.html">
+                                    <input type="submit" class="btn btn-danger" value="Log-Out" onclick="logout()" />
+                                    <input type="button" class="btn btn-success" value="Close" data-dismiss="modal" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carico script -->
+            <script src="js/jquery.min.js"></script>
+            <script src="js/popper.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
+            <script src="./common.js"></script>
+            <script src="js/registrazioneScript.js"></script>
+</body>
+
+</html>

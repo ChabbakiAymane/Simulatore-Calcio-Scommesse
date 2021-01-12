@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>FANTATOTOCALCIO</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+      <div class="p-4 pt-5">
+        <a href="./index.html" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
+        <ul class="list-unstyled components mb-5">
+          <li id="index">
+            <a onclick='caricaPagine("index");'>Home</a>
+          </li>
+          <li class="user" id="homepage">
+            <a onclick='caricaPagine("homepage");'>User</a>
+          </li>
+          <li id="classifica">
+            <a onclick='caricaPagine("classifica");'>Classifica</a>
+          </li>
+          <li class="admin" id="inserisciEsiti">
+            <a class="admin" onclick='caricaPagine("inserisciEsiti");'>Inserisci Esiti</a>
+          </li>
+          <li class="user" id="pronostici">
+            <a onclick='caricaPagine("pronostici");'>Pronostici</a>
+          </li>
+          <li class="user active" id="infoSquadre">
+            <a onclick='caricaPagine("infoSquadre");'>Info Squadre</a>
+          </li>
+        </ul>
+
+        <div class="footer">
+          <p> All rights reserved.</p>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5">
+      <span id="login_failed"></span>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+          <button type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fa fa-bars"></i>
+            <span class="sr-only">Toggle Menu</span>
+          </button>
+          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button type="button" id="login" style="position: absolute; left:78%; padding: 10px;" class="btn btn-primary" onclick="caricaPagine('login')">LOG IN</button>
+            <button type="button" style="position: absolute; left:85%; padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#logout">LOG OUT</button>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="card" id="squadre" style="width: 100%;"></div>
+      <div class="card" id="datiSquadre" style="width: 100%;"></div>
+    </div>
+  </div>
+
+  <!-- PopUp di logout -->
+  <div class="container">
+    <div class="modal fade" id="logout" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Contenuto del popup di Logout-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">LOGOUT</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Vuoi veramente effettuare il logout?</p>
+          </div>
+          <div class="modal-footer">
+            <form id="logout" action="./index.html">
+              <input type="submit" class="btn btn-danger" value="Log-Out" onclick="logout()" />
+              <input type="button" class="btn btn-success" value="Close" data-dismiss="modal" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carico script -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="./common.js"></script>
+  <script src="js/get_info_squadre.js"></script>
+</body>
+
+</html>

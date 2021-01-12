@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="./check.js"></script>
+</head>
+
+<body class="admin">
+  <h3>Torna alla <a href="./index.html">HOME</a></h3>
+  <h1>FANTATOTOCALCIO</h1>
+
+  <form action="/search" method="get" name="form" id="form">
+    <input name="idP" id="idP" />
+    <button type="button" onclick="IDPartite()">IDP</button>
+    <button type="button" onclick="IDSquadre()">Squadre</button>
+    <!--<button type="button" onclick="DataPartite()">Data</button>
+    <button type="submit">submit</button>-->
+  </form>
+
+  <h2>Insert new Partita:</h2>
+
+  <h4>Partita1</h4><br>
+  <form action="/partite" method="post" name="partiteform1" id="pariteform1">
+    <label>Home: </label>
+    <select name="sq1" id="sq1" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Guest: </label>
+    <select name="sq2" id="sq2" form="sq2form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Date: </label>
+    <input type="date" name="date1" id="date1" /><br>
+  </form>
+  <br>
+  <h4>Partita2</h4><br>
+  <form action="/partite" method="post" name="partiteform2" id="pariteform2">
+    <label>Home: </label>
+    <select name="sq3" id="sq3" form="sq5form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Guest: </label>
+    <select name="sq4" id="sq4" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Date: </label>
+    <input type="date" name="date2" id="date2" required /><br>
+  </form>
+  <br>
+  <h4>Partita3</h4><br>
+  <form action="/partite" method="post" name="partiteform3" id="pariteform3">
+    <label>Home: </label>
+    <select name="sq5" id="sq5" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Guest: </label>
+    <select name="sq6" id="sq6" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Date: </label>
+    <input type="date" name="date3" id="date3" required /><br>
+  </form>
+  <br>
+  <h4>Partita4</h4><br>
+  <form action="/partite" method="post" name="partiteform4" id="pariteform4">
+    <label>Home: </label>
+    <select name="sq7" id="sq7" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Guest: </label>
+    <select name="sq8" id="sq8" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Date: </label>
+    <input type="date" name="date4" id="date4" required /><br>
+  </form>
+  <br>
+  <h4>Partita5</h4><br>
+  <form action="/partite" method="post" name="partiteform5" id="pariteform5">
+    <label>Home: </label>
+    <select name="sq9" id="sq9" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Guest: </label>
+    <select name="sq10" id="sq10" form="sq1form">
+      <option value="1">Atalanta</option>
+      <option value="2">Benevento</option>
+      <option value="3">Bologna</option>
+      <option value="4">Cagliari</option>
+      <option value="5">Crotone</option>
+      <option value="6">Fiorentina</option>
+      <option value="7">Genoa</option>
+      <option value="8">Inter</option>
+      <option value="9">Juventus</option>
+      <option value="10">Lazio</option>
+      <option value="11">Milan</option>
+      <option value="12">Napoli</option>
+    </select>
+    <label>Date: </label>
+    <input type="date" name="date5" id="date5" required /><br>
+  </form>
+
+  <button type="button" onclick="preInsert()">Insert new match</button>
+
+
+  <h2>Partite:</h2>
+  <ul id="match"></ul>
+  <script src="AddPartite.js"></script>
+
+</body>
+
+</html>
