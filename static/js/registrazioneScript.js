@@ -25,6 +25,7 @@ function check(){
     var checkPswRepeat = checkDatiPswRepeat();
 
     if(checkUsername && checkEmail && checkPsw && checkPswRepeat){
+        document.getElementById("spinner").style.display = "inline";
         nuovoUser(username, email, password);
     }
 }
@@ -192,7 +193,7 @@ function nuovoUser(username, email, password){
             return;
         }
     })
-    .then(() => {
+    .then(async () => {
         if(registrato){
             var email = document.getElementById("emailError");
             email.innerHTML = "Email già utilizzata. Effettua login o recupera le credenziali!";
@@ -209,7 +210,7 @@ function nuovoUser(username, email, password){
                                             "punti": newUser_punti,
                                             "puntiSettimanali": newUser_puntiSet}),
             })
-            .then((resp) => {
+            .then(async (resp) => {
                 //errore dati sbagliati
                 if(resp.status == 400){
                     alert(resp.error);
@@ -224,6 +225,7 @@ function nuovoUser(username, email, password){
                 }
                 //Utente registrato correttamente
                 if(resp.status == 200){
+                    await sendEmail(newUser_mail, newUser_username, newUser_psw);
                     alert("Registrazione avvenuta correttamente!");
                     window.location = "../login.html";
                 }
@@ -246,4 +248,27 @@ function showPsw(){
     } else {
         toggle.type = "password";
     }
+}
+
+async function sendEmail(emailUser, usernameUser, passwordUser){
+    const urlUser = "/api/v2/registrazione/send-mail";
+    var toRtn = false;
+
+    await fetch(urlUser, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify( { "email": emailUser,
+                                "username": usernameUser,
+                                "password": passwordUser })
+    }).then((resp) => {
+        if(resp.status == 200){
+            alert("Email inviata. Controlla la posta elettronica!");
+            toRtn = true;
+        }else{
+            var email = document.getElementById("emailError");
+            email.innerHTML = "Email inesistente. Inserire una mail valida!";
+            email.style.color = "red";
+        }
+    });
+    return toRtn;
 }
