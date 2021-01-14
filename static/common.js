@@ -49,7 +49,7 @@ async function caricaPagine(page){
         window.location.href = "./" + page + ".html";
         return true;
     }
-    if(page == "classifica"){
+    if(page == "index"){
         window.location.href = "./" + page + ".html";
         return true;
     }
