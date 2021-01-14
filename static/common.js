@@ -1,19 +1,17 @@
+//Funzione che controlla se il token è valido e in base al tipo dell'utente mostra i contenuti della pagina
 async function controllaToken() {
     var login;
 
-    if(!localStorage.getItem('token') || localStorage.getItem('token') == 'x' || localStorage.getItem('token') === undefined) { //se token non è presente o se è undefined
+    //se token non è presente o se è undefined
+    if(!localStorage.getItem('token') || localStorage.getItem('token') == 'x' || localStorage.getItem('token') === undefined) {
         localStorage.setItem('token', 'x');
         login = false;
     }else{
         //token presente
         const result = await fetch('/api/v2/check', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                token: localStorage.getItem('token')
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: localStorage.getItem('token') })
         })
         .then((res) => res.json())
         .then(function(result){
@@ -45,6 +43,7 @@ async function controllaToken() {
 }
 
 async function caricaPagine(page){
+    //Pagine che non devono essere filtrate (sono visibili da tutti)
     if(page == "login"){
         window.location.href = "./" + page + ".html";
         return true;
@@ -57,7 +56,7 @@ async function caricaPagine(page){
         window.location.href = "./" + page + ".html";
         return true;
     }
-
+    //Controllo se il token è valido
     var bool = await controllaToken();
     if(bool){
         document.getElementById("login_failed").innerHTML = "";
@@ -70,7 +69,8 @@ async function caricaPagine(page){
 }
 
 async function checkUser(){
-    if(!localStorage.getItem('token') || localStorage.getItem('token') == 'x' || localStorage.getItem('token') === undefined) { //se token non è presente o se è undefined
+    //se token non è presente o se è undefined
+    if(!localStorage.getItem('token') || localStorage.getItem('token') == 'x' || localStorage.getItem('token') === undefined) {
         localStorage.setItem('token', 'x');
     }else{
         //token presente
@@ -100,17 +100,13 @@ async function checkUser(){
                     x[i].style.display = "none";
                 }
                 document.getElementById("login").style.display = "none";
-            } else {
-                // utente non loggato
-                if (result.status === 'Error') { 
-                    login = false;
-                }
             }
         });
     }
 }
 checkUser();
 
+//Funzione che libera il localStorage e procede al logout dell'utente
 function logout(){
     const form = document.getElementById('logout');
     form.addEventListener('submit', logout);
@@ -120,12 +116,13 @@ function logout(){
     }
 }
 
+//Funzione per il login
 function login(){
     const form = document.getElementById('login');
     form.addEventListener('submit', login);
 
     async function login(event) {
-        event.preventDefault()
+        event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const result = await fetch('/api/v2/login', {

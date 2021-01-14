@@ -62,7 +62,7 @@ function caricaPartite() {
             var tdBtn = document.createElement('td');
             var btn = document.createElement("button");
          
-            btn.innerHTML = "<button type='button' id='"+ partite.idP + "' class='btn btn-primary'>Nuovo Pronostico</button>"
+            btn.innerHTML = "<a href='#savePronostico'><button type='button' id='"+ partite.idP + "' class='btn btn-primary'>Nuovo Pronostico</button></a>";
             btn.style.width = "50%";
             btn.style.position = "relative";
             btn.style.display = "flex";
