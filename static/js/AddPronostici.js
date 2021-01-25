@@ -125,7 +125,11 @@ function caricaPartite() {
                         html += "<div class='col' style='margin-left: 10%;'>";
                             html += "<button class='btn btn-primary' id='savePronostico' type='button' value='save'>Salva</button>&ensp;&ensp;";
                             html += "<button class='btn btn-secondary' id='close' type='button' value='" + partite.idP + "'>Chiudi</button>";
-                        html += "</div>";
+                    html += "</div>";
+                    html += "</div>";
+                    html += "<br><div id='messaggioSuccesso' style='position: center; width:50%; margin: 0 auto; display: none;' class='alert alert-success alert-dismissible'>";
+                        html += "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='alertSuccess'>&times;</a>";
+                        html += "<strong>Inserimento avvenuto con successo!</strong>";
                     html += "</div>";
 
                     document.getElementById("nuovoPronosticoDati").innerHTML = html;
@@ -151,8 +155,15 @@ function caricaPartite() {
     document.addEventListener('click', function(e){
         if(e.target && e.target.id == "savePronostico"){
             nuovoPronostico();
-            document.getElementById("mgsCheckBox").value = "Pronostico inserito correttamente";
-            document.getElementById("mgsCheckBox").style.color = "green";
+            document.getElementById("messaggioSuccesso").style.display = "block";
+        }
+    });
+
+    document.addEventListener('click', function(e){
+        if(e.target && e.target.id == "alertSuccess"){
+            document.getElementById("sq1").innerHTML = "";
+            document.getElementById("sq2").innerHTML = "";
+            document.getElementById("nuovoPronosticoDati").style.display = "none";
         }
     });
 }
@@ -164,19 +175,19 @@ function caricaPronosticiUser(){
 }
 
 //Carico e mostro i pronostici dell'utente
-function pronosticiUser(id){
+async function pronosticiUser(id){
     document.getElementById("tbody").innerHTML = "";
 
     const urlUser = "/api/v2/addPronostici/pronostici/" + id;
     const urlPartite = "/api/v2/addPronostici/partiteDisponibili";
 
-    fetch(urlPartite)
+    await fetch(urlPartite)
     .then((resp) => resp.json())
-    .then(function (partiteDisponibili) {
-        return partiteDisponibili.map(function (partite) {
-            fetch(urlUser)
+    .then(async function (partiteDisponibili) {
+        return partiteDisponibili.map(async function (partite) {
+            await fetch(urlUser)
             .then((resp) => resp.json())
-            .then(function(pronostitiUtente) {
+            .then(async function(pronostitiUtente) {
                 var checkDataExists = true;
                 var string1 = pronostitiUtente.error;
                 const string2 = "Errore pronostico inesistente";
@@ -203,7 +214,7 @@ function pronosticiUser(id){
                         var btnElimina = document.createElement("button");
                         
                         if(partite.idP == pro.partita){
-                            var htmlModifica = "<button class='btn btn-primary' name='btnModifica' id='modifica' type='button' data-toggle='collapse' data-target='#modificaCollapse" + partite.idP + "' aria-expanded='false' aria-controls='modificaCollapse'>Modifica</button>";
+                            var htmlModifica = "<button class='btn btn-primary' style='border: none;' name='btnModifica' id='modifica' type='button' data-toggle='collapse' data-target='#modificaCollapse" + partite.idP + "' aria-expanded='false' aria-controls='modificaCollapse'>Modifica</button>";
                             btnModifica.innerHTML = htmlModifica;
                             btnModifica.id = "modifica " + partite.idP + " " + pro.id;
                             btnModifica.style.border = "none";
@@ -212,7 +223,7 @@ function pronosticiUser(id){
     
                             var idBtnModifica = "modifica " + partite.idP + " " + pro.id;
     
-                            var htmlCollapse = "<div class='collapse' id='modificaCollapse" + partite.idP + "'><div class='card card-body'>";
+                            var htmlCollapse = "<div class='collapse' style='margin: 0 auto; width: 100%;' id='modificaCollapse" + partite.idP + "'><div class='card card-body'>";
                             htmlCollapse += "<p>Nuovo pronostico: <p>"
                             htmlCollapse += "<div class='row'>";
                                     htmlCollapse += "<div style='margin-left: 15px;'>"
@@ -240,13 +251,10 @@ function pronosticiUser(id){
                             btnElimina.id = "elimina " + partite.idP + " " + pro.id;
                             btnElimina.innerHTML = "X";
                             btnElimina.className = "btn btn-primary";
-    
+
                             td1.appendChild(btnModifica);
                             td2.appendChild(btnElimina);
-    
-                            tdBtn.appendChild(td1);
-                            tdBtn.appendChild(td2);
-    
+
                             sq1.innerHTML = partite.squadre1[0].name;
                             sq2.innerHTML = partite.squadre2[0].name;
                             pronostico.innerHTML = pro.pronostico;
@@ -256,7 +264,8 @@ function pronosticiUser(id){
                             tr.appendChild(sq1);
                             tr.appendChild(sq2);
                             tr.appendChild(pronostico);
-                            tr.appendChild(tdBtn);
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
                             tbody.appendChild(tr);
                         }
                     });
@@ -321,9 +330,6 @@ async function  nuovoPronostico(){
                                     "idU": idUtente,
                                     "pronostico": pronostico } )
         }).catch( error => console.error(error) );
-
-        alert("Pronostico aggiunto correttamente!");
-        document.getElementById("close").click();
     }else{
         document.getElementById("errorCheckBox").style.display = "block";
     }
@@ -363,8 +369,7 @@ async function modificaPronostico(idPro){
                                     "pronostico": nuovoValorePronostico} ),
         }).catch( error => console.error(error) );
 
-        alert("Modifica avvenuta!");
-        document.getElementById("tbody").innerHTML = "";
+        //alert("Modifica avvenuta!");
         pronosticiUser(idUser);
     }else{
         alert("Inserire un pronostico!");
