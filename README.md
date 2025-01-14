@@ -8,10 +8,6 @@
 > **_Target Users_**: Adolescenti e adulti appassionati di calcio.
 
 Questa Repository contiene il codice sorgente/API/documentazione per la realizzazione del progetto per il corso di Ingegneria Software II (Anno accademico 2020/2021, corso di laurea Informatica).
-
-Docenti:
- - Sandro Fiore
- - Marco Robol
  
  ### Link alla web Application: https://fantatotocalcio.herokuapp.com/
  
